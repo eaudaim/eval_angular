@@ -12,6 +12,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) {
   }
+  
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>('http://localhost:8080/rest/products');
@@ -27,6 +28,13 @@ export class ProductService {
 
   decreaseStock(product: Product) {
     product.stock -= 1;
+  }
+  getProductsId(id: string): Observable<Product> {
+    return this.http.get<Product>('http://localhost:8080/rest/products/' + id);
+  }
+
+  priceIsInferior(product: Product, productDetail: Product): boolean {
+    return product.price < productDetail.price;
   }
 
 }

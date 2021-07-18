@@ -1,0 +1,27 @@
+<table>
+    <tr>
+
+      <td>
+          
+        <img class="container"[src]="productDetail?.photo" alt="Produit">
+        
+        <div class="container">
+        <h2>{{productDetail?.title}} - {{productDetail?.price | currency:'EUR'}}</h2>
+        <p>{{productDetail?.description}}</p>
+        <p>Stock : {{productDetail?.stock}}
+        <span class="lastDispo" *ngIf="productDetail && isTheLast(productDetail)" [ngClass]="{last: isTheLast(productDetail)}"> DERNIER DISPONIBLE</span></p>
+        <button class="btn btn-primary" (click)="addToBasket(productDetail)">Add to Cart</button>
+    </div>
+      </td>
+    </tr>
+    </table>
+    <p ><br>Autres produits</p>
+    <div class=" row text-center">
+      <ng-container *ngFor="let product of products">
+        <app-product *ngIf="product?.title !== productDetail?.title" [data]="product"
+                     (addToBasket)="addToBasket($event)"
+                     [ngClass]="{priceInferior: priceIsInferior(product, productDetail)}"></app-product>
+      </ng-container>
+    </div>
+
+    
